@@ -5,3 +5,7 @@
 .child-landing{
     border: yellow;
 }
+.landing-img {
+    width: 300px;
+    height: 400px;
+}
