@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import landing from "../images/landing.png";
+import landingResized from "../images/landingResized.png";
 import "../styles/login.css";
 
 
@@ -20,6 +20,7 @@ const StyledLoginButton = styled.a`
   font-weight: 700;
   font-size: var(--fz-lg);
   padding: var(--spacing-sm) var(--spacing-xl);
+  margin-top: 1em;;
 
   &:hover,
   &:focus {
@@ -35,18 +36,25 @@ const StyledLandingDiv = styled.div`
   align-items: center;
   height: 100vh;
   width:50%;
+  padding:3em;
 `;
 
 const Login = () => (
   <StyledLoginContainer>
     <StyledLandingDiv>
-      <img classname="landing-img" src={landing} alt=""/>
-      <h2>Choose | Prompt |Play </h2>
+      <img classname="landing-img" src={landingResized} alt=""/>
 
     </StyledLandingDiv>
+    <StyledLandingDiv>
+    <h1>what2play</h1>
+  
     <StyledLoginButton href="http://localhost:8888/login">
       Log in to Spotify
     </StyledLoginButton>
+
+    <h3 style={{color:"grey", marginTop:"2em"}}>Choose | Prompt | Play </h3>
+    </StyledLandingDiv>
+
   </StyledLoginContainer>
 );
 

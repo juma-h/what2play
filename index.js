@@ -7,9 +7,7 @@ const port = 8888; //port to listen to
 const stateKey = "spotify_auth_state"; //stores the generated string when auth to prevent cross-site request forgery
 
 //storing  env variables
-const CLIENT_ID=xxxxxx
-const CILENT_SECRET=xxxxxx
-const REDIRECT_URI = "http://localhost:8888/callback";
+
 
 
 //tells app to have a GET request and respond with the below

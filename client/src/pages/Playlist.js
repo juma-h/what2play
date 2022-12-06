@@ -132,7 +132,7 @@ const Playlist = () => {
             </div>
           </StyledHeader>
 
-          {/* <StyledDropdown active={!!sortValue}>
+          <StyledDropdown active={!!sortValue}>
                 <label className="sr-only" htmlFor="order-select">Sort tracks</label>
                 <select
                   name="track-order"
@@ -146,7 +146,7 @@ const Playlist = () => {
                     </option>
                   ))}
                 </select>
-              </StyledDropdown> */}
+              </StyledDropdown> 
 
           <main>
             <SectionWrapper title="Playlist" breadcrumb={true}>
