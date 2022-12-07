@@ -8,6 +8,7 @@ const stateKey = "spotify_auth_state"; //stores the generated string when auth t
 
 //storing  env variables
 
+const REDIRECT_URI = "http://localhost:8888/callback";
 
 
 //tells app to have a GET request and respond with the below
@@ -43,6 +44,9 @@ app.get("/login", (req, res) => {
     'user-read-private',
     'user-read-email',
     'user-top-read',
+    'playlist-modify-public',
+    'playlist-read-collaborative'
+
   ].join(' '); //scope of authorizations
 
   const queryParams = querystring.stringify({

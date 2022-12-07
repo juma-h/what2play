@@ -17,14 +17,16 @@ const Playlists = () => {
     catchErrors(fetchData());
   }, []);
 
+  console.log(playlistsData)//logs the playlists
+
+
+ 
   // When playlistsData updates, check if there are more playlists to fetch
   // then update the state variable
   useEffect(() => {
     if (!playlistsData) {
       return;
     }
-
-
     console.log(playlistsData.next);
 
     // Playlist endpoint only returns 20 playlists at a time, so we need to

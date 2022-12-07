@@ -1,13 +1,12 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect , useMemo} from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { catchErrors } from '../utils'
-import { getPlaylistById, getAudioFeaturesForTracks } from '../spotify';
-import { TrackList, SectionWrapper, Loader } from '../components';
-import { StyledHeader , StyledDropdown} from '../styles';
+import { getPlaylistById ,getAudioFeaturesForTracks} from '../spotify';
+import { TrackList, SectionWrapper } from '../components';
+import { StyledDropdown, StyledHeader } from '../styles';
 
 const Playlist = () => {
-
   const { id } = useParams();
   const [playlist, setPlaylist] = useState(null);
   const [tracksData, setTracksData] = useState(null);
@@ -17,13 +16,13 @@ const Playlist = () => {
   const sortOptions = ['danceability', 'tempo', 'energy'];
 
   useEffect(() => {
-        const fetchData = async () => {
-        const { data } = await getPlaylistById(id);
-        setPlaylist(data);
-        setTracksData(data.tracks);
-        };
+    const fetchData = async () => {
+      const { data } = await getPlaylistById(id);
+      setPlaylist(data);
+      setTracksData(data.tracks);
+    };
 
-        catchErrors(fetchData());
+    catchErrors(fetchData());
   }, [id]);
 
   // When tracksData updates, compile arrays of tracks and audioFeatures
@@ -45,28 +44,24 @@ const Playlist = () => {
       ...tracks ? tracks : [],
       ...tracksData.items
     ]));
+
     catchErrors(fetchMoreData());
-
-    // Also update the audioFeatures state variable using the track IDs
-    const fetchAudioFeatures = async () => {
-
-        const ids = tracksData.items.map(({ track }) => track.id).join(',');//join arr of similar tracks ids by [,]
-
-        const { data } = await getAudioFeaturesForTracks(ids);
-
-        //spreads array and adds new tracks respectively.
-        setAudioFeatures(audioFeatures => ([
-          ...audioFeatures ? audioFeatures : [],
-          ...data['audio_features']
-        ]));
-
-      };
-      catchErrors(fetchAudioFeatures());
   
+     // Also update the audioFeatures state variable using the track IDs
+     const fetchAudioFeatures = async () => {
+      const ids = tracksData.items.map(({ track }) => track.id).join(',');
+      const { data } = await getAudioFeaturesForTracks(ids);
+      setAudioFeatures(audioFeatures => ([
+        ...audioFeatures ? audioFeatures : [],
+        ...data['audio_features']
+      ]));
+    };
+    catchErrors(fetchAudioFeatures());
+
   }, [tracksData]);
+   
 
-
-  //maps over each track data and displays it.
+  //create memoized track for new tracks
   // Map over tracks and add audio_features property to each track
   const tracksWithAudioFeatures = useMemo(() => {
     if (!tracks || !audioFeatures) {
@@ -91,28 +86,30 @@ const Playlist = () => {
     });
   }, [tracks, audioFeatures]);
 
-
     // Sort tracks by audio feature to be used in template
     const sortedTracks = useMemo(() => {
-        if (!tracksWithAudioFeatures) {
-          return null;
+      if (!tracksWithAudioFeatures) {
+        return null;
+      }
+  
+      return [...tracksWithAudioFeatures].sort((a, b) => {
+        const aFeatures = a['audio_features'];
+        const bFeatures = b['audio_features'];
+  
+        if (!aFeatures || !bFeatures) {
+          return false;
         }
-    
-        return [...tracksWithAudioFeatures].sort((a, b) => {
-          const aFeatures = a['audio_features'];
-          const bFeatures = b['audio_features'];
-    
-          if (!aFeatures || !bFeatures) {
-            return false;
-          }
-    
-          return bFeatures[sortValue] - aFeatures[sortValue];
-        });
-      }, [sortValue, tracksWithAudioFeatures]);
+  
+        return bFeatures[sortValue] - aFeatures[sortValue];
+      });
+    }, [sortValue, tracksWithAudioFeatures]);
+
+  console.log("moooodsss")
+  console.log(audioFeatures);
 
   return (
     <>
-      {playlist (
+      {playlist && (
         <>
           <StyledHeader>
             <div className="header__inner">
@@ -132,7 +129,8 @@ const Playlist = () => {
             </div>
           </StyledHeader>
 
-          <StyledDropdown active={!!sortValue}>
+          <main>
+          <StyledDropdown>
                 <label className="sr-only" htmlFor="order-select">Sort tracks</label>
                 <select
                   name="track-order"
@@ -146,13 +144,12 @@ const Playlist = () => {
                     </option>
                   ))}
                 </select>
-              </StyledDropdown> 
-
-          <main>
+              </StyledDropdown>
             <SectionWrapper title="Playlist" breadcrumb={true}>
-            {sortedTracks ? (
+
+              {sortedTracks && (
                 <TrackList tracks={sortedTracks} />
-              ):(<Loader/>)}
+              )}
             </SectionWrapper>
           </main>
         </>
