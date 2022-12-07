@@ -5,3 +5,4 @@ export {default as PlaylistsGrid} from "./PlaylistsGrid"
 export {default as TimeRangeButtons} from "./TimeRangeButtons";
 export {default as Loader} from "./Loader";
 export {default as CardMood} from "./CardMood";
+export {default as Footer} from "./Footer";
