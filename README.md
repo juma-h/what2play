@@ -25,10 +25,10 @@ Will add more
 
 ## Images
 
-![landing page]('./client/src/images/landingPage.jpeg)
-![profile page]()
-![playlist page]()
-![tracks page]()
+![landing page](./client/src/images/landingPage.jpeg)
+![profile page](./client/src/images/Capture.PNG)
+![playlist page](./client/src/images/playlists.PNG)
+![tracks page](./client/src/images/tracks%20PNG.PNG)
 
 
 ## Local Installation & Set Up
