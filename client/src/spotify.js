@@ -133,7 +133,7 @@ export const accessToken = getAccessToken();
 export const getCurrentUser = () => axios.get('/me');
 
 //get current user playlists
-export const getUserPlaylists = (limit=20) => {
+export const getUserPlaylists = (limit=50) => {
   return (axios.get(`/me/playlists?limit=${limit}`));
 }
 
@@ -149,6 +149,13 @@ export const getTopArtists = (time_range = 'short_term') => {
 export const getTopTracks = (time_range = 'short_term') =>{
   return (
     axios.get(`/me/top/tracks?time_range=${time_range}`)
+  )
+}
+
+//get all songs
+export const getTopTracksAll = (time_range = 'long_term', limit=50) =>{
+  return (
+    axios.get(`/me/top/tracks?limit=${limit}&time_range=${time_range}`)
   )
 }
 
@@ -172,3 +179,13 @@ export const getTopTracks = (time_range = 'short_term') =>{
  export const getAudioFeaturesForTracks = ids => {
   return axios.get(`/audio-features?ids=${ids}`);
 };
+
+// create new playlists 
+export const createNewPlaylist = (user_id, body) =>{
+  return axios.post(`/users/${user_id}/playlists`,body)
+}
+
+//add items to newly created playlist
+export const addItemsToPlaylist = (playlist_id, body)=>{
+  return axios.post(`/playlists/${playlist_id}/tracks`, body)
+}

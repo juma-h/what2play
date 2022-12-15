@@ -8,6 +8,9 @@ const Playlists = () => {
   const [playlistsData, setPlaylistsData] = useState(null);
   const [playlists, setPlaylists] = useState(null);
 
+
+
+  //playlist data - og 
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getUserPlaylists();

@@ -30,7 +30,7 @@ const Profile = () => {
       const userTopArtists = await getTopArtists();//gets top artists
       setTopArtists(userTopArtists.data)
 
-      const userTopTracks = await getTopTracks();
+      const userTopTracks = await getTopTracks();//gets top tracks
       setTopTracks(userTopTracks.data)
 
       console.log(userTopTracks.data)
